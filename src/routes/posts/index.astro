@@ -1,0 +1,14 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { t, getLocalePath } from 'i18n:astro'
+---
+
+<Layout title={t('posts_list')}>
+  <a href={getLocalePath('/')}>{t('back')}</a>
+  <h1>{t('posts_list')}</h1>
+  <ul>
+    <li><a href={getLocalePath('/posts/1/')}>{t('post')} 1</a></li>
+    <li><a href={getLocalePath('/posts/2/')}>{t('post')} 2</a></li>
+    <li><a href={getLocalePath('/posts/3/')}>{t('post')} 3</a></li>
+  </ul>
+</Layout>

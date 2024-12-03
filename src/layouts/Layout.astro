@@ -1,15 +1,23 @@
 ---
+import { getHtmlAttrs, getLocale, getSwitcherData } from 'i18n:astro'
+
 interface Props {
   title: string
 }
 
 const { title } = Astro.props
 
-// const pathname = new URL(Astro.request.url).pathname
+const locale = getLocale()
+const data = getSwitcherData()
+
+const switcherLabels: Record<string, string> = {
+  en: 'English',
+  'zh-TW': '繁體中文',
+}
 ---
 
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html {...getHtmlAttrs()}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -18,9 +26,19 @@ const { title } = Astro.props
 
     <title>{title}</title>
 
-    <slot name="head"></slot>
+    <slot name="head" />
   </head>
   <body>
+    <select onchange="location = this.value;">
+      {
+        data.map(e => (
+          <option value={`${e.href.replace(/\/$/, '')}/`} selected={e.locale === locale}>
+            {switcherLabels[e.locale]}
+          </option>
+        ))
+      }
+    </select>
+
     <slot />
   </body>
 </html>

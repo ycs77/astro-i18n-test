@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrolicious/i18n": "^0.5.1",
     "astro": "^4.16.2",
     "dayjs": "^1.11.13",
+    "i18next": "^23.16.8",
     "typescript": "^5.6.3"
   }
 }

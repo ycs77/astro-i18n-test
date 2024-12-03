@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { t, getLocale, getLocalePath } from 'i18n:astro'
+
+const locale = getLocale()
+---
+
+<Layout title="Astro">
+  <h1>Astro</h1>
+  <p>Locale: {locale}</p>
+  <ul>
+    <li><a href={getLocalePath('/posts/')}>{t('posts_list')}</a></li>
+    <li><a href={getLocalePath('/posts/1/')}>{t('post')} 1</a></li>
+  </ul>
+</Layout>
