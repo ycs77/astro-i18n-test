@@ -14,10 +14,17 @@ const switcherLabels: Record<string, string> = {
   en: 'English',
   'zh-TW': '繁體中文',
 }
+
+const htmlLangMap: Record<string, string> = {
+  'zh-TW': 'zh-Hant-TW',
+}
+
+const htmlAttrs = getHtmlAttrs()
+htmlAttrs.lang = htmlLangMap[locale] || locale
 ---
 
 <!doctype html>
-<html {...getHtmlAttrs()}>
+<html {...htmlAttrs}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
