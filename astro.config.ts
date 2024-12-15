@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config'
-import vercel from '@astrojs/vercel/serverless'
+import vercel from '@astrojs/vercel'
 import i18n from '@astrolicious/i18n'
 
 export default defineConfig({
