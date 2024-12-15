@@ -1,0 +1,35 @@
+diff --git a/node_modules/@astrolicious/i18n/assets/stubs/virtual.mjs b/node_modules/@astrolicious/i18n/assets/stubs/virtual.mjs
+index f5cc894..c4eddd8 100644
+--- a/node_modules/@astrolicious/i18n/assets/stubs/virtual.mjs
++++ b/node_modules/@astrolicious/i18n/assets/stubs/virtual.mjs
+@@ -1,3 +1,5 @@
++import micromatch from "micromatch";
++
+ /**
+  * @returns {import("../../src/types.ts").I18nConfig}
+  */
+@@ -237,13 +239,17 @@ export const switchLocalePath = (locale) => {
+ 	if (!currentLocaleRoute) {
+ 		currentLocaleRoute = currentLocaleRoutes
+ 			.filter((route) => route.params.length > 0)
+-			.find(
+-				(route) =>
+-					JSON.stringify(route.params.sort()) ===
+-					JSON.stringify(
+-						Object.keys(config.paths.dynamicParams?.[locale] ?? {}).sort(),
+-					),
+-			);
++			.find((route) => {
++				const pattern = Object.keys(config.paths.dynamicParams?.[locale] ?? {})
++					.reduce(
++						(acc, key) => acc.replace(`[${key}]`, '*'),
++						route.injectedRoute.pattern,
++					);
++				return micromatch.isMatch(
++					_withoutTrailingSlash(config.paths.pathname),
++					pattern,
++				);
++			});
+ 	}
+ 
+ 	// Fallback

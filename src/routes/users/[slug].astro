@@ -1,0 +1,26 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { t, getLocales, getLocalePath, setDynamicParams } from 'i18n:astro'
+
+const { slug } = Astro.params
+if (!slug) throw new Error('Slug is required')
+
+await new Promise<void>((resolve, reject) => {
+  if (!['1', '2', '3'].includes(slug)) {
+    reject(new Error('Http Status 404'))
+    return
+  }
+  resolve()
+})
+
+setDynamicParams(getLocales().map(locale => ({
+  locale,
+  params: { slug },
+})))
+---
+
+<Layout title={`User ${slug}`}>
+  <a href={getLocalePath('/')}>{t('back')}</a>
+  <h1>User {slug}</h1>
+  <p>{t('content')}...</p>
+</Layout>
